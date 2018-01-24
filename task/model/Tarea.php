@@ -85,6 +85,7 @@ class Tarea {
             "fechavencimiento" => $this->fechaVencimiento
         ));
         
+        $this->conexion = null; 
         return $save;
     }   
     

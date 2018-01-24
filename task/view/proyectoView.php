@@ -18,13 +18,18 @@
                         method: "POST",
                         success: function(result){
                             console.log(result);
-                            //$("button [value="+result+"]").hide();
-                            boton.hide();
-                            //alert ('ok');
-                            //alert (result);
+                            boton.attr("disabled", true);
+                            boton.append(" <span class='glyphicon glyphicon-ok'></span>");
                         }
                     });           
                 }); 
+                
+                //$('.añadirNotas').hide();
+                
+                $('.notas').click(function(){
+                   
+                });
+                
             }); 
 
         </script>
@@ -40,7 +45,7 @@
     </head>
     <body class="container">
         <div class="col-lg-7">
-        <h1>PAGINA PROYECTO</h1>
+        <h1><?php echo strtoupper($data['datosPrpyecto']->nombre) ?></h1>
         <hr>
                 <form action="index.php?controller=tarea&action=alta&idProyecto=<?php echo $_GET['idProyecto']?>" method="post" >
                     <h3>Crear Tarea</h3>
@@ -61,7 +66,21 @@
                 Nombre: <?php echo $tarea["nombre"]; ?> -
                 Fecha Vencimiento: <?php echo $tarea["fecha_vencimiento"]; ?> -
                 <a href="index.php?controller=tarea&action=delete&idTarea=<?php echo $tarea["idTarea"]?>&idProyecto=<?php echo $tarea["idProyecto"]?>" class="btn btn-danger">Eliminar</a>&nbsp;
-                <button class="btn btn-info realizado"  value="<?php echo $tarea["idTarea"]?>">Realizado</button>
+                <?php if($tarea["realizado"]==0) {?>
+                            <button class="btn btn-info realizado"  value="<?php echo $tarea["idTarea"]?>">Realizado</button>
+                <?php }else{ ?>
+                            <button class="btn btn-info realizado"  value="<?php echo $tarea["idTarea"]?>" disabled ></span>Realizado <span class="glyphicon glyphicon-ok"></button>
+                <?php } ?>
+                <button class="btn btn-warning notas" value="<?php echo $tarea["idTarea"]?>">Notas</button>
+                    <!--<div class="añadirNotas">
+                        <div>
+                            <form action="index.php?controller=nota&action=alta&id=<?php //echo $tarea["idTarea"]?>" method="post" >
+                            <hr/>
+                            Añadir nota: <textarea name="nota" class="form-control"></textarea
+                            <input type="submit" value="Añadir" class="btn btn-success"/>
+                            </form>
+                        </div>
+                    </div>-->
                 <hr/>
             <?php } ?>
         </section>

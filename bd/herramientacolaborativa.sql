@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-01-2018 a las 13:38:01
+-- Tiempo de generación: 24-01-2018 a las 13:22:08
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.9
 
@@ -52,13 +52,23 @@ CREATE TABLE `mensaje` (
 --
 
 INSERT INTO `mensaje` (`idMensaje`, `descripcion`, `fecha`, `idProyecto`) VALUES
-(1, 'probando', '2018-01-22', 61),
-(2, 'mensaje3', '2018-01-22', 61),
-(3, 'miercoles comprar', '2018-01-22', 61),
-(4, 'ir al gym', '2018-01-22', 61),
 (5, 'el coche esta bastante sucio', '2018-01-22', 62),
 (6, 'esta muy sucio', '2018-01-22', 64),
-(7, 'llevara tiempo', '2018-01-22', 64);
+(7, 'llevara tiempo', '2018-01-22', 64),
+(9, '<dfs<dfsfsa', '2018-01-24', 62),
+(10, 'fsfsdfsdfdsdfdf', '2018-01-24', 62);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nota`
+--
+
+CREATE TABLE `nota` (
+  `idNota` int(4) NOT NULL,
+  `idTarea` int(4) NOT NULL,
+  `descripcion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -77,12 +87,12 @@ CREATE TABLE `proyecto` (
 --
 
 INSERT INTO `proyecto` (`idProyecto`, `nombre`, `descripcion`) VALUES
-(61, 'usu1', 'pro1'),
 (62, 'usu1', 'pro2'),
 (63, 'usu1', 'pro3'),
 (64, 'usu2', 'pro1'),
 (65, 'usu2', 'pro2'),
-(66, 'usu2', 'pro3');
+(66, 'usu2', 'pro3'),
+(68, 'pagina web', 'asdasdasasd');
 
 -- --------------------------------------------------------
 
@@ -103,11 +113,10 @@ CREATE TABLE `tarea` (
 --
 
 INSERT INTO `tarea` (`idTarea`, `nombre`, `fecha_vencimiento`, `realizado`, `idProyecto`) VALUES
-(22, 'pro1', '2018-01-25', 1, 61),
-(23, 'pro1.1', '2018-01-27', 1, 61),
 (24, 'lavar coche', '2018-01-26', 0, 62),
 (25, 'lavar coche', '2018-01-26', 0, 64),
-(29, 'axad', '2018-01-26', 1, 61);
+(47, 'tare<sdf', '2018-01-14', 1, 68),
+(49, 'adsad', '2018-01-26', 0, 62);
 
 -- --------------------------------------------------------
 
@@ -151,9 +160,9 @@ CREATE TABLE `usuario_proyecto` (
 --
 
 INSERT INTO `usuario_proyecto` (`idUsuario`, `idProyecto`, `tipo`) VALUES
-(1, 61, 'creador'),
 (1, 62, 'creador'),
 (1, 63, 'creador'),
+(1, 68, 'creador'),
 (2, 64, 'creador'),
 (2, 65, 'creador'),
 (2, 66, 'creador');
@@ -175,6 +184,13 @@ ALTER TABLE `archivo`
 ALTER TABLE `mensaje`
   ADD PRIMARY KEY (`idMensaje`),
   ADD KEY `idProyecto` (`idProyecto`);
+
+--
+-- Indices de la tabla `nota`
+--
+ALTER TABLE `nota`
+  ADD PRIMARY KEY (`idNota`),
+  ADD KEY `idTarea` (`idTarea`);
 
 --
 -- Indices de la tabla `proyecto`
@@ -216,19 +232,25 @@ ALTER TABLE `archivo`
 -- AUTO_INCREMENT de la tabla `mensaje`
 --
 ALTER TABLE `mensaje`
-  MODIFY `idMensaje` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idMensaje` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `nota`
+--
+ALTER TABLE `nota`
+  MODIFY `idNota` int(4) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `proyecto`
 --
 ALTER TABLE `proyecto`
-  MODIFY `idProyecto` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `idProyecto` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT de la tabla `tarea`
 --
 ALTER TABLE `tarea`
-  MODIFY `idTarea` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `idTarea` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -251,6 +273,12 @@ ALTER TABLE `archivo`
 --
 ALTER TABLE `mensaje`
   ADD CONSTRAINT `mensaje_ibfk_1` FOREIGN KEY (`idProyecto`) REFERENCES `proyecto` (`idProyecto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `nota`
+--
+ALTER TABLE `nota`
+  ADD CONSTRAINT `nota_ibfk_1` FOREIGN KEY (`idTarea`) REFERENCES `tarea` (`idTarea`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tarea`

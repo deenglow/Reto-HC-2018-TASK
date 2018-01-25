@@ -50,10 +50,10 @@ class Nota {
 
     
     public function save(){
-        $consulta = $this->conexion->prepare("INSERT INTO nota (descripcion) VALUES (:descripcion) WHERE idTarea = :idTarea");
+        $consulta = $this->conexion->prepare("INSERT INTO nota (idTarea, descripcion) VALUES (:idTarea, :descripcion)"); 
         $save = $consulta->execute(array(
-            "descripcion" => $this->descripcion,
-            "idTarea"=> $this->idTarea
+            "idTarea" => $this->idTarea,
+            "descripcion" => $this->descripcion
         ));
         
         $this->conexion = null; 

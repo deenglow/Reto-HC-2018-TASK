@@ -45,6 +45,11 @@ function cargarControlador($controller){
             require_once $strFileController;
             $controllerObj=new MensajeController();
             break; 
+        case 'nota':
+            $strFileController='controller/NotaController.php';
+            require_once $strFileController;
+            $controllerObj=new NotaController();
+            break; 
     }
     return $controllerObj;
 }

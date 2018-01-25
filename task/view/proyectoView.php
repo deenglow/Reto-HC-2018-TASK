@@ -24,12 +24,42 @@
                     });           
                 }); 
                 
-                //$('.añadirNotas').hide();
-                
+
                 $('.notas').click(function(){
-                   
+                   var boton=$(this);
+                   boton.attr('id','target');
+                   boton.next().append('<div class="añadirNotas"><div><form method="post" class="form_notas"><hr/>Añadir nota: <textarea name="nota" class="form-control"></textarea></form><button class="btn btn-success submitNota">Añadir</button>&nbsp;<button class="btn btn-primary cerrarNota">Cerrar</button></div>');
+                   $('.form_notas').attr('action','index.php?controller=nota&action=alta&idTarea='+boton.val());
+                   boton.attr('disabled','disabled');
+                });
+                     
+                $('.container').on('click','.submitNota',function(){//para los componentes generados dinamicamente
+                    var datos = $(this).prev().serialize();
+                       var formulario = $(this).parent();
+                    $.ajax({
+                        type: formulario.attr('method'), 
+                        url: formulario.attr('action'),
+                        data: datos,
+                        success: function (data) { 
+                            
+                            cerrarAñadirNota(formulario);
+                        } 
+                    });
                 });
                 
+                $('.container').on('click','.cerrarNota',function(){//para los componentes generados dinamicamente
+                     var formulario = $(this).parent();
+                           cerrarAñadirNota(formulario);
+                       
+                });
+                
+                function cerrarAñadirNota(formulario){
+                    formulario.remove();
+                    $('#target').removeAttr('disabled');
+                    $('#target').removeAttr('id'); 
+                }
+           
+ 
             }); 
 
         </script>
@@ -71,16 +101,10 @@
                 <?php }else{ ?>
                             <button class="btn btn-info realizado"  value="<?php echo $tarea["idTarea"]?>" disabled ></span>Realizado <span class="glyphicon glyphicon-ok"></button>
                 <?php } ?>
-                <button class="btn btn-warning notas" value="<?php echo $tarea["idTarea"]?>">Notas</button>
-                    <!--<div class="añadirNotas">
-                        <div>
-                            <form action="index.php?controller=nota&action=alta&id=<?php //echo $tarea["idTarea"]?>" method="post" >
-                            <hr/>
-                            Añadir nota: <textarea name="nota" class="form-control"></textarea
-                            <input type="submit" value="Añadir" class="btn btn-success"/>
-                            </form>
-                        </div>
-                    </div>-->
+                <button class="btn btn-warning mostrarNotas" value="<?php echo $tarea["idTarea"]?>">Ver Notas</button>
+            
+                <button class="btn btn-success notas" value="<?php echo $tarea["idTarea"]?>">Añadir Nota</button>
+                <div></div>
                 <hr/>
             <?php } ?>
         </section>

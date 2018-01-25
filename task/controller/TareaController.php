@@ -81,7 +81,6 @@ class TareaController {
             $tarea=new Tarea($this->conexion);
             $idTarea=$tarea->realizado($_POST["idTarea"]);
         }    
-        echo $idTarea;
         return $idTarea;
     }
     

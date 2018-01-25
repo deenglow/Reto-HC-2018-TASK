@@ -47,12 +47,11 @@ class NotaController {
         if(isset($_POST["nota"])){
              $nota=new Nota($this->conexion);
              $nota->setDescripcion($_POST["nota"]);
-             $nota->setIdTarea($_GET['idTarea']);
-             $nota->save();
-             
-           
-            
+             $nota->setIdTarea($_GET["idTarea"]);
+             $save=$nota->save();
+
         }
+        return $save;
        
     }
    

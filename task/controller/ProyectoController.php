@@ -59,7 +59,7 @@ class ProyectoController {
     public function proyectoVista(){
         include './model/Tarea.php';
         include './model/Mensaje.php';
-
+    
         $proyecto=new Proyecto($this->conexion);
         $tarea=new Tarea($this->conexion);
         $mensaje=new Mensaje($this->conexion);
@@ -67,7 +67,6 @@ class ProyectoController {
         $datosProyecto=$proyecto->getAll($_GET['idProyecto']);
         $listaTareas=$tarea->getAllByIdProyecto($_GET['idProyecto']);
         $listaMensajes=$mensaje->getAllByIdProyecto($_GET['idProyecto']);
-        
         
         //Cargamos la vista index y le pasamos valores
         $this->view("proyecto",array(

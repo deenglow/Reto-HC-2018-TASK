@@ -27,36 +27,35 @@
 
                 $('.notas').click(function(){
                    var boton=$(this);
-                   boton.attr('id','target');
                    boton.next().append('<div class="añadirNotas"><div><form method="post" class="form_notas"><hr/>Añadir nota: <textarea name="nota" class="form-control"></textarea></form><button class="btn btn-success submitNota">Añadir</button>&nbsp;<button class="btn btn-primary cerrarNota">Cerrar</button></div>');
                    $('.form_notas').attr('action','index.php?controller=nota&action=alta&idTarea='+boton.val());
-                   boton.attr('disabled','disabled');
                 });
                      
                 $('.container').on('click','.submitNota',function(){//para los componentes generados dinamicamente
                     var datos = $(this).prev().serialize();
-                       var formulario = $(this).parent();
+                    var formulario = $(this).prev();
+                    var btn=$(this);
                     $.ajax({
-                        type: formulario.attr('method'), 
+                        type:formulario.attr('method'), 
                         url: formulario.attr('action'),
                         data: datos,
                         success: function (data) { 
-                            
-                            cerrarAñadirNota(formulario);
+                            cerrarAñadirNota(formulario, btn);
                         } 
                     });
                 });
                 
                 $('.container').on('click','.cerrarNota',function(){//para los componentes generados dinamicamente
                      var formulario = $(this).parent();
-                           cerrarAñadirNota(formulario);
+                     var btn=$(this);
+                     cerrarAñadirNota(formulario);
                        
                 });
                 
                 function cerrarAñadirNota(formulario){
-                    formulario.remove();
-                    $('#target').removeAttr('disabled');
-                    $('#target').removeAttr('id'); 
+                    formulario.parent().remove();
+                    
+                    
                 }
            
  

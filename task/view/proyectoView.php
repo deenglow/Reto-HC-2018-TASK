@@ -10,7 +10,6 @@
             $(document).ready(function (){
                $('.realizado').click(function(event){
                    var boton = $(this);
-                   //alert(boton.values());
                    var idTarea=$(this).val();
                     $.ajax({
                         url: "index.php?controller=tarea&action=realizado",
@@ -57,8 +56,38 @@
                     
                     
                 }
-           
- 
+                  
+                $('.mostrarNotas').hide();
+                
+                $('.verNotas').click(function(){ 
+                   var idTarea=$(this).val();
+                   var posicionarmeDom=$(this).next().next().next();
+                   $.ajax({
+                        method: 'POST', 
+                        url: 'index.php?controller=nota&action=mostrarNotas',
+                        data: {"idTarea": idTarea},
+                        success: function (data) { 
+                               
+                               console.log(data);
+                               var notas=jQuery.parseJSON(data);
+                               
+                               notas.forEach(function(nota){
+                                   
+                                   posicionarmeDom.children('ul').append('<li class="list-group-item">'+nota.descripcion+'</li>');
+                                   
+                               });
+                        } 
+                   });
+
+                   posicionarmeDom.show();
+                   
+                });
+                
+                $('.x').click(function(){ 
+                   $(this).parent().parent().children('ul').empty();
+                   $(this).parent().parent().hide();
+                });
+                
             }); 
 
         </script>
@@ -100,10 +129,14 @@
                 <?php }else{ ?>
                             <button class="btn btn-info realizado"  value="<?php echo $tarea["idTarea"]?>" disabled ></span>Realizado <span class="glyphicon glyphicon-ok"></button>
                 <?php } ?>
-                <button class="btn btn-warning mostrarNotas" value="<?php echo $tarea["idTarea"]?>">Ver Notas</button>
+                            <button class="btn btn-warning  verNotas" value="<?php echo $tarea["idTarea"]?>">Ver Notas</button>
             
                 <button class="btn btn-success notas" value="<?php echo $tarea["idTarea"]?>">Añadir Nota</button>
                 <div></div>
+                <div class="mostrarNotas">
+                    <h4>NOTAS <button class="x">X</button> </h4>
+                    <ul class="list-group"></ul>                  
+                </div>
                 <hr/>
             <?php } ?>
         </section>
@@ -116,12 +149,17 @@
                     <input type="submit" value="Añadir" class="btn btn-success"/>   
                 </form>
                 <section style="height:400px;overflow-y:scroll;">
-            <?php foreach($data["mensajes"] as $mensaje) {?>
-                 Mensaje: <?php echo $mensaje["descripcion"]; ?> - 
-                 fecha : <?php echo $mensaje["fecha"]; ?>
-                <hr/>
-            <?php } ?>
-        </section>
+                    <?php foreach($data["mensajes"] as $mensaje) {?>
+                         Mensaje: <?php echo $mensaje["descripcion"]; ?> - 
+                         fecha : <?php echo $mensaje["fecha"]; ?>
+                        <hr/>
+                    <?php } ?>
+                </section>
+                <hr style="border: 2px solid black;">
+                <h3>Invitaciones</h3>
+                
+                
+                
                 
             </div>
             

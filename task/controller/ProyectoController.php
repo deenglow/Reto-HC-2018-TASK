@@ -67,7 +67,7 @@ class ProyectoController {
         $datosProyecto=$proyecto->getAll($_GET['idProyecto']);
         $listaTareas=$tarea->getAllByIdProyecto($_GET['idProyecto']);
         $listaMensajes=$mensaje->getAllByIdProyecto($_GET['idProyecto']);
-        
+   
         //Cargamos la vista index y le pasamos valores
         $this->view("proyecto",array(
                 "tareas"=>$listaTareas,

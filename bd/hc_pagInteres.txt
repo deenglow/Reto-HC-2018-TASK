@@ -1,0 +1,13 @@
+http://www.chw.net/foro/bases-datos/934788-pl-sql-deseo-saber-el-ultimo-registro.html
+
+http://javiermiguelgarcia.blogspot.com.es/2014/07/jquery-anadir-eventos-elementos-creados.html
+
+
+https://www.codexworld.com/autocomplete-textbox-multiple-values-jquery-php-mysql/
+
+http://plnkr.co/edit/uPoLCMjOnZhGq8qBe3I1?p=preview
+
+https://www.jqwidgets.com/community/topic/input-with-auto-complete-multiple-values-binding-to-json-data/
+
+
+https://github.com/devbridge/jQuery-Autocomplete --interesante

@@ -39,18 +39,6 @@
                 <hr/>
             <?php } ?>
         </section>
-            
-             <h3>LISTA DE PROYECTOS DISPONIBLES</h3>
-            <hr/>
-        <section style="height:400px;overflow-y:scroll;">
-            <?php foreach($data["proyectosDisponibles"] as $proyectoDisponible) {?>
-                Nombre: <?php echo $proyectoDisponible["nombre"]; ?> -
-                Descripcion: <?php echo $proyectoDisponible["descripcion"]; ?> -
-                <a href="index.php?controller=proyecto&action=delete&idProyecto=<?php echo $proyectoDisponible['idProyecto']; ?>" class="btn btn-danger">Eliminar</a>&nbsp;
-                <a href="index.php?controller=proyecto&action=proyectoVista&idProyecto=<?php echo $proyectoDisponible['idProyecto'];?>" class="btn btn-info">Ir Proyecto</a>&nbsp;
-                <hr/>
-            <?php } ?>
-        </section>
             </div>
             <div class="col-lg-5">
                 <h3>ARCHIVOS</h3> 

@@ -38,6 +38,9 @@ class NotaController {
             case "delete" :
                 $this->delete();
                 break;
+            case "mostrarNotas" :
+                $this->mostrarNotas();
+                break;
    
         }
     }
@@ -54,9 +57,14 @@ class NotaController {
         return $save;
        
     }
-   
-    //FUNCION ACTUALIZAR
-    public function actualizar(){
+    
+    public function mostrarNotas(){
+        if(isset($_POST["idTarea"])){
+             $nota=new Nota($this->conexion);
+             $notas=$nota->getAllByIdTarea($_POST["idTarea"]);
+
+        }
+       echo json_encode($notas);
         
     }
 

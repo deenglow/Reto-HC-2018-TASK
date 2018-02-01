@@ -37,10 +37,13 @@
                         url: formulario.attr('action'),
                         data: datos,
                         success: function (data) { 
-                            cerrarAñadirNota(formulario, btn);
+                            var form=formulario.parent();
+                            cerrarAñadirNota(form);
                         } 
                     });
                 });
+                
+                
                 
                 $('body').on('click','.cerrarNota',function(){//para los componentes generados dinamicamente
                      var formulario = $(this).parent().parent();
@@ -51,7 +54,6 @@
                 
                 function cerrarAñadirNota(formulario){
                     formulario.remove();
-                  
                 }
                   
                 $('.mostrarNotas').hide();
@@ -68,9 +70,8 @@
                             var notas=jQuery.parseJSON(datos);
                             
                             notas.forEach(function(nota){
-                                      posicionarmeDom.children('ul').append('<li>'+nota.descripcion+'</li>');  
-                            });
-                             
+                                      posicionarmeDom.children('ul').append('<li value="'+nota.idNota+'">'+nota.descripcion+'&nbsp;&nbsp;<span class="glyphicon glyphicon-trash listadoNotas" ></span></li>');  
+                            });  
                         } 
                    });
 
@@ -81,6 +82,20 @@
                 $('.x').click(function(){ 
                    $(this).parent().parent().children('ul').empty();
                    $(this).parent().parent().hide();
+                });
+                
+                $('body').on('click','.listadoNotas', function(){
+                    var li=$(this).parent();
+                    var idNota=$(this).parent().val();
+                    $.ajax({
+                        url:"index.php?controller=nota&action=delete&idNota="+idNota,
+                        method:"GET",
+                        success: function(result){
+                            console.log(result);
+                            li.remove();
+                        }
+                    });
+                    
                 });
                 
             }); 

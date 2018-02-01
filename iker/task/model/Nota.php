@@ -70,4 +70,16 @@ class Nota {
        
     }   
     
+    public function delete(){
+        
+        $consulta = $this->conexion->prepare("DELETE FROM nota WHERE idNota = :idNota"); 
+        $consulta->execute(array(
+            "idNota" => $this->idNota,
+        ));
+        $fila=$consulta->rowCount();
+        $this->conexion = null; 
+        
+        return $fila;
+        
+    }
 }

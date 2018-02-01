@@ -62,16 +62,23 @@ class ProyectoController {
     
         $proyecto=new Proyecto($this->conexion); 
         $datosProyecto=$proyecto->getAll($_GET['idProyecto']);
-         $tarea=new Tarea($this->conexion);
+        $tarea=new Tarea($this->conexion);
         $listaTareas=$tarea->getAllByIdProyecto($_GET['idProyecto']);
-         $mensaje=new Mensaje($this->conexion);
+        $tarea2=new Tarea($this->conexion);
+        $numTareas=$tarea2->rowCountTareas($_GET['idProyecto']);
+        echo 'Tareas totales '.$numTareas;
+        $tarea3=new Tarea($this->conexion);
+        $numTareasRealizadas=$tarea3->rowCountTareasRealizadas($_GET['idProyecto']);
+        echo 'Tareas totales realizadas '.$numTareasRealizadas;
+        $mensaje=new Mensaje($this->conexion);
         $listaMensajes=$mensaje->getAllByIdProyecto($_GET['idProyecto']);
         
         //Cargamos la vista index y le pasamos valores
         $this->view("proyecto",array(
                 "tareas"=>$listaTareas,
                 "mensajes" =>$listaMensajes,
-                "datosProyecto"=>$datosProyecto
+                "datosProyecto"=>$datosProyecto,
+                "numeroTareas"=>$numTareas
             ));
     }
     

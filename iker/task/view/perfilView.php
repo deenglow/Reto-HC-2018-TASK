@@ -24,6 +24,10 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalEditar">Editar</a></button>
                 <hr/>
             <?php } ?>
+                        <button type="button" id="invitaciones" class="btn btn-info" data-toggle="modal" data-target="#aceptarInvitaciones">
+                            Invitaciones<span class="badge badge-info"><?php echo $data['numeroDeInvitaciones']?></span></a>
+                        </button>
+                
             </div>
              <div id="proyecto">
               
@@ -135,10 +139,30 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
 
         </div>
     </div>
+
+<!--prueba -->
+ <div class="modal fade" id="aceptarInvitaciones" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <ul class="list-group">
+                    <li class="list-group-item disabled">Invitaciones</li>
+                    <?php foreach($data["invitaciones"] as $invitaciones) {?>
+                    <li class="list-group-item">
+                        Proyecto: <?php echo strtoupper($invitaciones["nombre"]); ?> 
+                        <a href="index.php?controller=proyecto&action=deleteInvitacion&idProyecto=<?php echo $invitaciones["idProyecto"];?>&idUsuario=<?php echo $invitaciones["idUsuario"]; ?>" class="btn btn-danger">Rechazar</a>&nbsp;
+                        <a href="index.php?controller=proyecto&action=aceptarInvitacion&" class="btn btn-info">Aceptar</a>&nbsp;
+                    </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+  </div>
+
+<!-- fin : prueba -->
+
 </main>
     
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="./assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>

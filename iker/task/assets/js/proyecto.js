@@ -98,4 +98,31 @@
                     
                 });
                 
-            }); 
+                $('#alertInfo').hide();
+                
+                $('#invitar').click(function(event){
+                    event.preventDefault();
+                    var form = $(this).parent().parent();
+                    var datos = form.serialize();
+                    $.ajax({
+                        url: form.attr('action'),
+                        method:form.attr('method'),
+                        data: datos,
+                        success:function(result) {
+                           console.log(result);
+                           $('#alertInfo').show();
+                           $('#alertInfo').delay(2000).hide(600); 
+                        }
+                    });
+                    
+                    
+                        
+                        
+                        
+                        
+                    
+                    
+                    
+                });
+                
+}); 

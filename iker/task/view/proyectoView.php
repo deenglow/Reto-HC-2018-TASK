@@ -14,13 +14,28 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];}
   <!-- Sidebar -->
         <aside class="lateral dev">
             <div  style="height:400px">
-                <img src="./assets/img/avatar.jpg" alt="Foto perfil" alt="avatar perfil">
-               <button type="button" id="botonInvitar" class="btn btn-info" data-toggle="modal" data-target="#proyectoNuevo">Invitar</a></button>
+               <img src="./assets/img/avatar.jpg" alt="Foto perfil" alt="avatar perfil">
             <?php 
             $usuarios= $_SESSION["usuario"];
             foreach($usuarios as $ususario) {?>
               <h3> <?php echo $ususario["nombre"]; ?> </h3>     
             <?php } ?>
+              
+              <!-- Invitaciones-->
+              <form action="index.php?controller=proyecto&action=invitacion&idProyecto=<?php echo $_GET['idProyecto']?>" method="post">
+	    		<div>
+                            <select name="usuarioSeleccionado" class="form-control">
+                                <option>Busca usuario</option>
+				<?php foreach ($data['usuarios'] as $usuario) {
+                                    echo '<option value="'.$usuario['idUsuario'].'">'.$usuario['email'].'</option>';
+				}?>
+                            </select>
+                            <input type="submit" name="search" value="Invitar" class="btn btn-info" id="invitar"/>
+	    		</div>
+	    	</form><!-- Fin: Invitaciones-->
+                <div class="alert alert-success" role="alert" id="alertInfo">
+                    Invitacion Enviada con Exito!!!
+                </div>
                
             </div>
             <!-- un div que tenga los participantes del proyecto--> 
@@ -50,7 +65,7 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];}
         <section class="contenido dev">
             <h1><?php echo strtoupper($data['datosProyecto']->nombre)?> </h1>
             <!--<button type="button" class="btn btn-primary">
-                Notificaciones <span class="badge badge-info"><?php echo$data['numeroTareas']?></span>
+                Notificaciones <span class="badge badge-info"><?php// echo$data['numeroTareas']?></span>
             </button>-->
   <!-- TAREAS -->
             <ul class="dev">
@@ -116,59 +131,7 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];}
         </aside>
 
     <!-- OJO ESTO HAY QUE ORDENAR Y TERMINAR-->
-    
-     <script>
-       /*     $(document).ready(function (){
-               $('.realizado').click(function(event){
-                   var boton = $(this);
-                   //alert(boton.values());
-                   var idTarea=$(this).val();
-                    $.ajax({
-                        url: "index.php?controller=tarea&action=realizado",
-                        data: {"idTarea":idTarea},
-                        method: "POST",
-                        success: function(result){
-                            console.log(result);
-                            boton.attr("disabled", true);
-                            boton.append(" <span class='glyphicon glyphicon-ok'></span>");
-                        }
-                    });           
-                }); 
-                
-
-                $('.notas').click(function(){
-                   var boton=$(this);
-                   boton.next().append('<div class="añadirNotas"><div><form method="post" class="form_notas"><hr/>Añadir nota: <textarea name="nota" class="form-control"></textarea></form><button class="btn btn-success submitNota">Añadir</button>&nbsp;<button class="btn btn-primary cerrarNota">Cerrar</button></div>');
-                   $('.form_notas').attr('action','index.php?controller=nota&action=alta&idTarea='+boton.val());
-                });
-                     
-                $('.container').on('click','.submitNota',function(){//para los componentes generados dinamicamente
-                    var datos = $(this).prev().serialize();
-                    var formulario = $(this).prev();
-                    $.ajax({
-                        type:formulario.attr('method'), 
-                        url: formulario.attr('action'),
-                        data: datos,
-                        success: function (data) { 
-                            cerrarAñadirNota(formulario);
-                        } 
-                    });
-                });
-                
-                $('.container').on('click','.cerrarNota',function(){//para los componentes generados dinamicamente
-                     var formulario = $(this).prev();
-                           cerrarAñadirNota(formulario);
-                       
-                });
-                
-                function cerrarAñadirNota(formulario){
-                    formulario.remove();
-                }
-           
- 
-            }); */
-
-        </script><!-- FIN -->
+   
     </main>
     
 

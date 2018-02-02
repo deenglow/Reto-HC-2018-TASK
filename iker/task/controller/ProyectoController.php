@@ -45,6 +45,9 @@ class ProyectoController {
             case "delete" :
                 $this->delete();
                 break;
+            case "invitacion" :
+                $this->invitacion();
+                break;
             default:
                 $this->proyectoVista();
                 break;
@@ -59,26 +62,33 @@ class ProyectoController {
     public function proyectoVista(){
         include './model/Tarea.php';
         include './model/Mensaje.php';
+        include './model/Usuario.php';
     
         $proyecto=new Proyecto($this->conexion); 
         $datosProyecto=$proyecto->getAll($_GET['idProyecto']);
+        
         $tarea=new Tarea($this->conexion);
         $listaTareas=$tarea->getAllByIdProyecto($_GET['idProyecto']);
+        
         $tarea2=new Tarea($this->conexion);
         $numTareas=$tarea2->rowCountTareas($_GET['idProyecto']);
-        echo 'Tareas totales '.$numTareas;
+        
         $tarea3=new Tarea($this->conexion);
         $numTareasRealizadas=$tarea3->rowCountTareasRealizadas($_GET['idProyecto']);
-        echo 'Tareas totales realizadas '.$numTareasRealizadas;
+        
         $mensaje=new Mensaje($this->conexion);
         $listaMensajes=$mensaje->getAllByIdProyecto($_GET['idProyecto']);
+        
+        $usuario=new Usuario($this->conexion);
+        $listaDeUsuarios=$usuario->listarUsuarios();
         
         //Cargamos la vista index y le pasamos valores
         $this->view("proyecto",array(
                 "tareas"=>$listaTareas,
                 "mensajes" =>$listaMensajes,
                 "datosProyecto"=>$datosProyecto,
-                "numeroTareas"=>$numTareas
+                "numeroTareas"=>$numTareas,
+                "usuarios"=>$listaDeUsuarios
             ));
     }
     
@@ -107,7 +117,26 @@ class ProyectoController {
         }
         header('Location: index.php?controller=perfil&action=perfilUsuario&idUsuario='.$_GET["idUsuario"]);
     }
-   
+    
+    public function invitacion(){
+        if(isset($_POST["usuarioSeleccionado"])){
+
+            include './model/UsuarioProyecto.php';
+            
+            echo 'idPRo: '.$_GET["idProyecto"];
+            echo 'idUSU: '.$_POST["usuarioSeleccionado"];
+
+            $usuarioProyecto = new UsuarioProyecto ($this->conexion);
+            $usuarioProyecto->setIdProyecto($_GET["idProyecto"]);
+            $usuarioProyecto->setIdUsuario($_POST["usuarioSeleccionado"]);
+            $usuarioProyecto->setTipo("invitado");
+            
+            $save = $usuarioProyecto->save();
+            
+        }
+        //header('Location: index.php?controller=perfil&action=perfilUsuario&idUsuario='.$_GET["idUsuario"]);
+    }
+    
     //FUNCION ACTUALIZAR
     public function actualizar(){
         /*if(!isset($_GET["actualizar"])){          

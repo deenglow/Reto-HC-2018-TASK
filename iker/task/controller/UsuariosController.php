@@ -54,6 +54,7 @@ class UsuariosController
             default:
                 $this->index();
                 break;
+            
         }
     }
 
@@ -207,5 +208,8 @@ class UsuariosController
       
         require_once __DIR__ . "/../view/" . $vista . "View.php";
     }
+    
+  
+    
 }
 ?>

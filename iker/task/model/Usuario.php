@@ -239,4 +239,13 @@ class Usuario {
         return $update;
 
     }
+    
+    public function listarUsuarios(){
+        $consulta = $this->conexion->prepare("SELECT idUsuario, email FROM usuario");
+        $consulta->execute();
+        $resultados = $consulta->fetchAll();
+        $this->conexion = null; 
+        return $resultados;
+       
+    }
 }

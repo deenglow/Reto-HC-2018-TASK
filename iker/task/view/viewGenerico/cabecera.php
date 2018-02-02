@@ -69,10 +69,13 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>-->
             <ul class="nav navbar-nav navbar-right">
+
                 <li><a href="./core/logout.php">Cerrar Sesion</a></li>
 
             </ul>
         </div>
+        
+     
 
         <!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

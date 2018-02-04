@@ -11,3 +11,8 @@ https://www.jqwidgets.com/community/topic/input-with-auto-complete-multiple-valu
 
 
 https://github.com/devbridge/jQuery-Autocomplete --interesante
+
+
+
+
+https://parasitovirtual.wordpress.com/2010/06/15/curso-php-capitulo-10-subida-y-descarga-de-ficheros/ - descarga de file

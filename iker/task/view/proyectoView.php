@@ -33,13 +33,24 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];}
                             <input type="submit" name="search" value="Invitar" class="btn btn-info" id="invitar"/>
 	    		</div>
 	    	</form><!-- Fin: Invitaciones-->
+                <div>
+                    <label for="invitaciones_proyecto">Introduce email: </label><br>
+                    <input type="text" name="invitaciones_proyecto" id="invitaciones_proyecto"/>
+                    <button>Invitar</button>
+     
+                 </div>
+                
                 <div class="alert alert-success" role="alert" id="alertInfo">
                     Invitacion Enviada con Exito!!!
+                </div>
+                <div class="alert alert-danger" role="alert" id="alertInfoUsuario">
+                    Usuario no existe
                 </div>
                
             </div>
             <!-- un div que tenga los participantes del proyecto--> 
  <!-- SECTION PARA EL CHAT -->
+ <hr>
            <h1>CHAT</h1>   
          
           <div id="chat">         
@@ -133,6 +144,40 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];}
     <!-- OJO ESTO HAY QUE ORDENAR Y TERMINAR-->
    
     </main>
+
+<script>
+    $(document).ready(function(){
+
+        $('#alertInfoUsuario').hide();
+        
+        $('#invitaciones_proyecto').blur(function(){
+           var valorInput=$(this).val();
+           $.ajax({
+               url: "index.php?controller=usuarios&action=buscarUsuario&email="+valorInput,
+               method:'POST',
+               success: function(result){
+                   console.log(result);
+                   if(result==0){
+                        $('#alertInfoUsuario').show();
+                        $('#alertInfoUsuario').delay(2000).hide(600); 
+                        
+                   }else{
+                       
+                       //JSON.stringify(result);
+                       alert(JSON.stringify(result)[0][0]);
+                       
+                   };
+                   
+                   
+               }
+           });
+              
+        
+        });
+        
+        
+    });
+</script>
     
 
 

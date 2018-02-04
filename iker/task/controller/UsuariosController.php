@@ -37,7 +37,11 @@ class UsuariosController
                 $this->detalle();
                 break;
             case "update" :
-               
+                 case "buscarUsuario" :
+              
+                $this->buscarUsuario();
+                break;
+                
                 $this->update();
                 break;
             case "login" :  
@@ -107,6 +111,27 @@ class UsuariosController
         
         echo $variableretorno;
     }
+    
+    public function buscarUsuario()
+    {
+        $email = $_GET["email"];
+        $usuario = new Usuario($this->conexion);
+        $usu = $usuario->infoPorEmail($email);
+      // echo json_encode($datos, JSON_FORCE_OBJECT);
+        $variableretorno="";
+        if(empty($usu)){
+            $variableretorno=0;
+            
+        }else{
+           
+            $variableretorno=$usu;
+            echo json_encode($variableretorno,JSON_FORCE_OBJECT);
+        }
+        
+        //echo $variableretorno;
+    }
+    
+    
 
     /**
      * Crea un nuevo empleado a partir de los parámetros POST

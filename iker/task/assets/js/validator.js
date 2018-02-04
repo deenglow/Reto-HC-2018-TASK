@@ -28,7 +28,7 @@ $(document).ready(function () {
          
             
           });
-      });
+});
   
   /**
    * hacer una funcion que oculte divs etc si esta o no logeado---pendiente

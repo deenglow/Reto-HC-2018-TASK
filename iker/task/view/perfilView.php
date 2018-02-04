@@ -22,14 +22,26 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
               <h3> <?php echo $usuario["email"]; ?> </h3>
               <h3>  <?php echo $usuario["telefono"]; ?></h3>
                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalEditar">Editar</a></button>
-                <hr/>
+             
             <?php } ?>
-                        <button type="button" id="invitaciones" class="btn btn-info" data-toggle="modal" data-target="#aceptarInvitaciones">
-                            Invitaciones<span class="badge badge-info"><?php echo $data['numeroDeInvitaciones']?></span></a>
-                        </button>
-                
+                    <button type="button" id="invitaciones" class="btn btn-dark" data-toggle="modal" data-target="#aceptarInvitaciones">
+                            Invitaciones&nbsp;&nbsp;<span class="badge badge-info"><?php echo $data['numeroDeInvitaciones']?></span></a>
+                    </button> 
+                     <?php if($data['numeroDeInvitaciones']==0) {?>
+                            <script>
+                                $(document).ready(function(){
+                                   
+                                   $('#invitaciones').attr('disabled',true);
+
+                                });
+                            </script>
+                    <?php } ?>
+                  
+                     <hr>
+               
             </div>
-             <div id="proyecto">
+           
+          <div id="proyecto">
               
                 
                  
@@ -59,19 +71,21 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
             <!--Proyecto by David -->
            
             <ul class="dev">
-                     <?php foreach($data["proyectos"] as $proyecto) {?>
-                 <div id="positproyecto">           
-                    <img src="./assets/img/amarillo2.png" alt="posit proyecto" id="posit">
-                     <div>  
-                         <p> Nombre: <?php echo $proyecto["nombre"]; ?> -</p>
-                         <p>Descripcion: <?php echo $proyecto["descripcion"]; ?> -</p>
-                          <a href="index.php?controller=proyecto&action=delete&idUsuario=<?php echo $idUsuario ?>&idProyecto=<?php echo $proyecto['idProyecto']; ?>" class="btn btn-danger">Eliminar</a>&nbsp;
-                        <a href="index.php?controller=proyecto&action=proyectoVista&idProyecto=<?php echo $proyecto['idProyecto'];?>" class="btn btn-info">Ir Proyecto</a>&nbsp;
-                     </div>   
-                   
-                </div>
-            <?php } ?>
-               
+                <?php foreach($data["proyectos"] as $proyecto) {?>
+                     <div id="positproyecto">           
+                        <img src="./assets/img/amarillo2.png" alt="posit proyecto" id="posit">
+                         <div>  
+                             <p> Nombre: <?php echo $proyecto["nombre"]; ?> -</p>
+                             <p>Descripcion: <?php echo $proyecto["descripcion"]; ?> -</p>
+                             
+                             <?php if($proyecto['tipo']=='creador') {?>
+                             <a href="index.php?controller=proyecto&action=delete&idUsuario=<?php echo $idUsuario ?>&idProyecto=<?php echo $proyecto['idProyecto']; ?>" class="btn btn-danger">Eliminar</a>&nbsp;
+                              <?php } ?>
+                             <a href="index.php?controller=proyecto&action=proyectoVista&idProyecto=<?php echo $proyecto['idProyecto'];?>" class="btn btn-info">Ir Proyecto</a>&nbsp;
+                         </div>   
+
+                    </div>
+                <?php } ?>
             </ul>
             <button type="button" id="botonNproyecto" class="btn btn-info btn-lg" data-toggle="modal" data-target="#proyectoNuevo">Nuevo Proyecto</a></button>    
         </section>
@@ -90,7 +104,7 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
          <?php foreach($usuarios as $ususario) {?>           
                 Nombre:<input type="text" name="nombre" value="<?php echo $ususario["nombre"]; ?> " class="form-control"/>
                 Apellido 1º:<input type="text" name="apellido1" value="<?php echo $ususario["apellido1"]; ?>" class="form-control"/>
-                 Apellido 2º:<input type="text" name="apellido2" value="<?php echo $ususario["apellido2"]; ?>" class="form-control"/>
+                Apellido 2º:<input type="text" name="apellido2" value="<?php echo $ususario["apellido2"]; ?>" class="form-control"/>
                 Email:<input type="text" name="email" value="<?php echo $ususario["email"]; ?> " class="form-control"/>
                 Contraseña:<input type="text" name="contrasena" value="<?php echo $ususario["contrasena"]; ?> " class="form-control"/>
                 telefono:<input type="text" name="telefono" value="<?php echo $ususario["telefono"]; ?>" class="form-control"/>                
@@ -151,7 +165,7 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
                     <li class="list-group-item">
                         Proyecto: <?php echo strtoupper($invitaciones["nombre"]); ?> 
                         <a href="index.php?controller=proyecto&action=deleteInvitacion&idProyecto=<?php echo $invitaciones["idProyecto"];?>&idUsuario=<?php echo $invitaciones["idUsuario"]; ?>" class="btn btn-danger">Rechazar</a>&nbsp;
-                        <a href="index.php?controller=proyecto&action=aceptarInvitacion&" class="btn btn-info">Aceptar</a>&nbsp;
+                        <a href="index.php?controller=proyecto&action=aceptarInvitacion&idProyecto=<?php echo $invitaciones["idProyecto"];?>&idUsuario=<?php echo $invitaciones["idUsuario"]; ?>"" class="btn btn-info">Aceptar</a>&nbsp;
                     </li>
                     <?php } ?>
                 </ul>

@@ -48,9 +48,16 @@ class ProyectoController {
             case "invitacion" :
                 $this->invitacion();
                 break;
+            case "aceptarInvitacion" :
+                $this->aceptarInvitacion();
+                break;
+            case "deleteInvitacion" :
+                $this->rechazarInvitacion();
+                break;
             default:
                 $this->proyectoVista();
                 break;
+           
         }
     }
     
@@ -113,6 +120,37 @@ class ProyectoController {
             $usuarioProyecto->setTipo("creador");
             
             $save = $usuarioProyecto->save();
+            
+        }
+        header('Location: index.php?controller=perfil&action=perfilUsuario&idUsuario='.$_GET["idUsuario"]);
+    }
+    
+    public function aceptarInvitacion(){
+        if(isset($_GET["idUsuario"])){
+
+            include './model/UsuarioProyecto.php';
+
+            $usuarioProyecto = new UsuarioProyecto ($this->conexion);
+            $usuarioProyecto->setIdProyecto($_GET ['idProyecto']);
+            $usuarioProyecto->setIdUsuario($_GET["idUsuario"]);
+            $usuarioProyecto->setTipo("participante");
+            
+            $save = $usuarioProyecto->aceptarInvitacion();
+            
+        }
+        header('Location: index.php?controller=perfil&action=perfilUsuario&idUsuario='.$_GET["idUsuario"]);
+    }
+    
+    public function rechazarInvitacion(){
+        if(isset($_GET["idUsuario"])){
+
+            include './model/UsuarioProyecto.php';
+
+            $usuarioProyecto = new UsuarioProyecto ($this->conexion);
+            $usuarioProyecto->setIdProyecto($_GET ['idProyecto']);
+            $usuarioProyecto->setIdUsuario($_GET["idUsuario"]);
+
+            $save = $usuarioProyecto->rechazarInvitacion();
             
         }
         header('Location: index.php?controller=perfil&action=perfilUsuario&idUsuario='.$_GET["idUsuario"]);

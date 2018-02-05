@@ -72,13 +72,10 @@ function setConexion($conexion) {
         return $save;
     }
  public function getAllById($id){
-     echo $id;
+     
         $consulta = $this->conexion->prepare("SELECT idArchivo,url,descripcion,idProyecto FROM archivo WHERE idProyecto =".$id);
-        if($consulta){
-                        echo 'conectando';}
         $consulta->execute();
         $resultados = $consulta->fetchAll();
-        var_dump($resultados);
         $this->conexion = null; 
       
         return $resultados;

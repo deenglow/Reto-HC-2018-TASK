@@ -95,6 +95,7 @@ class ProyectoController {
                 "mensajes" =>$listaMensajes,
                 "datosProyecto"=>$datosProyecto,
                 "numeroTareas"=>$numTareas,
+                "numeroTareasRealizadas"=>$numTareasRealizadas
                 "usuarios"=>$listaDeUsuarios
             ));
     }

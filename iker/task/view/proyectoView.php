@@ -23,7 +23,26 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
             foreach($usuarios as $ususario) {?>
               <h3> <?php echo $ususario["nombre"]; ?> </h3>     
             <?php } ?>
-                <button type="button" id="botonInvitar" class="btn btn-info" data-toggle="modal" data-target="#proyectoNuevo">Invitar</a></button> 
+              
+              <!-- Invitaciones-->
+              <div>
+                    <label for="invitaciones_proyecto">Introduce email: </label><br>
+                    <input type="text" name="invitaciones_proyecto" id="invitaciones_proyecto"/>
+                    <form id="enviar_invitacion">
+                        <input type="hidden" name="idProyecto" value=<?php echo $_GET['idProyecto'] ?>/>
+                        <input type="hidden" name="idUsuario" value="" id="usuario_id"/>
+                    </form>
+                    <button id="invitar_usuario">Invitar</button>
+     
+                 </div>
+                
+                <div class="alert alert-success" role="alert" id="alertInfo">
+                    Invitacion Enviada con Exito!!!
+                </div>
+                <div class="alert alert-danger" role="alert" id="alertInfoUsuario">
+                    Usuario no existe
+                </div><!-- Fin: Invitaciones-->
+                
             </div>
             <!-- un div que tenga los participantes del proyecto--> 
  <!-- SECTION PARA EL CHAT -->
@@ -135,6 +154,58 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
     
     
     </main>
+<script>
+    $(document).ready(function(){
+
+        $('#alertInfoUsuario').hide();
+        $('#alertInfo').hide();
+        $('#invitar_usuario').attr('disabled',true);
+        
+        $('#invitaciones_proyecto').blur(function(){
+           var valorInput=$(this).val();
+           $.ajax({
+               url: "index.php?controller=usuarios&action=buscarUsuario&email="+valorInput,
+               method:'POST',
+               success: function(result){
+                   console.log(result);
+                   if(result==0){
+                        $('#alertInfoUsuario').show();
+                        $('#alertInfoUsuario').delay(2000).hide(600); 
+                   }else{     
+                       var datosObjeto=jQuery.parseJSON(result);
+                       $('#invitaciones_proyecto').attr('disabled',true);
+                       $('#invitar_usuario').removeAttr('disabled');
+                       $('#usuario_id').attr('value',datosObjeto.idUsuario);
+                   };    
+               }
+           });
+              
+        
+        });
+        
+        $('body').on('click','#invitar_usuario',function(event){     
+            event.preventDefault();
+            var datos=$('#enviar_invitacion').serialize();
+            $.ajax({
+                url: "index.php?controller=proyecto&action=invitacion",
+                method:"POST",
+                data:datos,
+                success:function(result){
+                    console.log(result);
+                    $('#alertInfo').show();
+                    $('#alertInfo').delay(2000).hide(600); 
+                }
+
+            });
+
+            $('#invitaciones_proyecto').attr('disabled',false);
+            $('#invitar_usuario').attr('disabled',true);
+            
+        });
+        
+        
+    });
+</script>
     
 
 

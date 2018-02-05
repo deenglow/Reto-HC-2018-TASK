@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-02-2018 a las 13:55:25
+-- Tiempo de generación: 05-02-2018 a las 13:55:24
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.9
 
@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `archivo` (
   `idArchivo` int(4) NOT NULL,
-  `nombre` varchar(20) NOT NULL,
+  `url` varchar(20) NOT NULL,
+  `descripcion` varchar(20) NOT NULL,
   `idProyecto` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -112,23 +113,11 @@ INSERT INTO `nota` (`idNota`, `idTarea`, `descripcion`) VALUES
 (49, 71, 'hola 3333'),
 (50, 71, 'hola 3333'),
 (51, 71, 'hola 3333'),
-(52, 72, 'prueba'),
-(53, 72, 'prueba'),
-(54, 72, 'prueba'),
-(55, 72, 'prueba2'),
-(56, 72, 'prueba2'),
-(57, 72, 'prueba2'),
-(58, 72, 'prueba3'),
-(59, 72, 'prueba3'),
-(60, 72, 'prueba3'),
-(61, 72, 'asdasdasf4'),
-(62, 73, 'una'),
-(63, 73, 'dos'),
-(64, 74, 'asad'),
 (65, 75, 'mierda'),
 (66, 79, 'asda'),
 (67, 79, 'qqweqrqweqwe'),
-(129, 89, 'hola');
+(129, 89, 'hola'),
+(132, 90, 'pruebas');
 
 -- --------------------------------------------------------
 
@@ -157,10 +146,10 @@ INSERT INTO `proyecto` (`idProyecto`, `nombre`, `descripcion`) VALUES
 (81, 'erdk,o', ''),
 (82, 'aaa', 'AAAAAA'),
 (108, 'prueba', 'probando'),
-(109, 'dddd', 'a'),
 (110, 'dasd', ''),
 (112, 'reto 3', 'vamos'),
-(113, 'ssdfs', 'sdfs');
+(113, 'ssdfs', 'sdfs'),
+(114, 'nuevo proyect usu 1', 'pruebas de invitaciones');
 
 -- --------------------------------------------------------
 
@@ -187,16 +176,14 @@ INSERT INTO `tarea` (`idTarea`, `nombre`, `fecha_vencimiento`, `realizado`, `idP
 (62, '<<<<', '2018-01-27', 0, 74),
 (63, 'a', '2018-01-28', 0, 72),
 (71, 'tarea nueva', '2018-02-02', 0, 108),
-(72, 'dadasd', '2018-02-02', 0, 109),
-(73, 'ajhbdasd', '2018-01-31', 0, 109),
-(74, 'sdddfsfsdsdfdf', '0000-00-00', 0, 109),
 (75, 'sdfsdfs', '2018-02-01', 0, 108),
 (76, 'ADASD', '2018-02-01', 0, 108),
 (77, 'ADASD', '2018-02-02', 0, 110),
 (78, 'qqqqqq', '2018-02-02', 0, 110),
 (79, 'sdfsd', '0000-00-00', 0, 110),
 (84, 'dddd', '2018-02-04', 1, 112),
-(89, 'asdas', '2018-02-01', 1, 113);
+(89, 'asdas', '2018-02-01', 1, 113),
+(90, 'pruebas5000', '2018-02-07', 0, 114);
 
 -- --------------------------------------------------------
 
@@ -252,12 +239,15 @@ INSERT INTO `usuario_proyecto` (`idUsuario`, `idProyecto`, `tipo`) VALUES
 (2, 65, 'creador'),
 (2, 66, 'creador'),
 (2, 72, 'invitado'),
+(3, 108, 'invitado'),
 (3, 112, 'creador'),
 (3, 113, 'creador'),
+(3, 114, 'participante'),
 (7, 108, 'creador'),
 (7, 110, 'creador'),
-(7, 112, 'invitado'),
-(8, 109, 'creador');
+(7, 112, 'participante'),
+(8, 112, 'invitado'),
+(8, 114, 'creador');
 
 --
 -- Índices para tablas volcadas
@@ -330,19 +320,19 @@ ALTER TABLE `mensaje`
 -- AUTO_INCREMENT de la tabla `nota`
 --
 ALTER TABLE `nota`
-  MODIFY `idNota` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `idNota` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 
 --
 -- AUTO_INCREMENT de la tabla `proyecto`
 --
 ALTER TABLE `proyecto`
-  MODIFY `idProyecto` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `idProyecto` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT de la tabla `tarea`
 --
 ALTER TABLE `tarea`
-  MODIFY `idTarea` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `idTarea` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

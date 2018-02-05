@@ -352,6 +352,10 @@ div.añadirNotas{
       background-color: #f8efc0;
       text-align: center;
 }
+/* ------------------------------------------------archivos------------------------------*/
+.subirArchivo{
+    width: 60%;
+}
 .mini{
     margin-bottom: 0;
 }

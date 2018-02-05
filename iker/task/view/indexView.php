@@ -11,7 +11,7 @@
     <div class="container" id="carrusel">
 
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
+     <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -19,7 +19,7 @@
                  <li data-target="#myCarousel" data-slide-to="4"></li>
             </ol>
 
-            <!-- Wrapper for slides -->
+    <!-- Wrapper for slides -->
             <div class="carousel-inner">
                 <div class="item active">
                     <img src="./assets/img/mujer.jpg" alt="ORGANIZA" style="width:100%; height: 300px;re">
@@ -38,7 +38,7 @@
             </div>
             
 
-            <!-- Left and right controls -->
+   <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
                 <span class="sr-only">Previous</span>
@@ -50,13 +50,15 @@
         </div>
     </div>
 </header>
- <!--modales -->
+
+
+ <!--modales ----------------------------------------------------------------------------------------------------------------------->
 <div class="container">
     <!-- Modal login-->
     <div class="modal fade" id="modalLogin" role="dialog">
         <div class="modal-dialog">
 
-            <!-- Modal content-->
+  <!-- Modal content-->
             <div class="modal-content" id="cajaLogin">
                 <div class="modal-header">
                
@@ -80,7 +82,7 @@
 
 </div>
 <div class="container">
-    <!-- Modal registro -->
+<!-- Modal registro -->
     <div class="modal fade" id="modalRegistro" role="dialog">
         <div class="modal-dialog">
 

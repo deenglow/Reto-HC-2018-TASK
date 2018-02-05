@@ -106,10 +106,17 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
        
           <aside class="lateral dev">
             <div  style="height:80%">
-           
+             <?php foreach($data["archivos"] as $archivo) {?>
+                 <p>Archivo: <?php echo $archivo["descripcion"]; ?><a href="index.php?controller=archivos&action=delete&idTarea=<?php echo $archivo["idArchivo"]?>" id="trash2" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></a></p>
+                  <?php } ?>
             </div>
-          <!-- SECTION PARA subir-->         
-          <button type="button" class="btn-info">Añadir documentacion</button>       
+          <!-- SECTION PARA subir-->  
+          <form action="index.php?controller=archivos&action=alta" method="post" class="subirArchivo"  enctype="multipart/form-data">
+       
+                <p>Descripcion:</p><input type="text" name="descrpcion" required="true"class="form-control"/>                               
+                <input  type="file" required="true" name="file" id="imagen" />
+                          <input type="submit" value="Añadir archivos" class="btn-info""/>  
+           </form>
            <div id="social">  
            <!-- Social -->
             <a href="#" class="dev mini">

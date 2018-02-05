@@ -29,7 +29,7 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
              <div >
                 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalEditar">Editar</a></button>      
           </div>
-          <!-- SECTION PARA boton nuevos proyectos-->  
+ <!-- SECTION PARA boton nuevos proyectos-->  
         
         
           <div id="social">            <!-- Social -->
@@ -46,7 +46,7 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
           </div>
         
         </aside>
-        <!-- Contenido PROYECTOS-->
+ <!-- Contenido PROYECTOS-->
         <section class="contenido dev">
             <h1>MIS PROYECTOS</h1>    
               <button type="button" id="botonNproyecto" class="btn btn-info btn-lg" data-toggle="modal" data-target="#proyectoNuevo"><span class="glyphicon glyphicon-plus"></span> Nuevo Proyecto</a></button> 

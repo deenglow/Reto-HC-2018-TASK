@@ -16,7 +16,9 @@
                         success: function(result){
                             console.log(result);
                             boton.attr("disabled", true);
-                            boton.append(" <span class='glyphicon glyphicon-ok'></span>");
+                            boton.empty();
+                           
+                            boton.append("<button class='btn btn-success' value='<?php echo $tarea['idTarea']?><span class='glyphicon  glyphicon-thumbs-up'></span></button>");
                         }
                     });           
                 }); 
@@ -24,7 +26,7 @@
 
                 $('.notas').click(function(){
                    var boton=$(this);
-                   boton.next().append('<div class="añadirNotas"><div><form method="post" class="form_notas"><hr/>Añadir nota: <textarea name="nota" class="form-control"></textarea></form><button class="btn btn-success submitNota">Añadir</button>&nbsp;<button class="btn btn-primary cerrarNota">Cerrar</button></div>');
+                   boton.next().append('<div class="añadirNotas"><div><form method="post" class="form_notas"><hr/><textarea name="nota" class="form-control"></textarea></form><button class="btn btn-success submitNota">Añadir</button>&nbsp;<button class="btn btn-primary cerrarNota">Cerrar</button></div>');
                    $('.form_notas').attr('action','index.php?controller=nota&action=alta&idTarea='+boton.val());
                 });
       
@@ -70,7 +72,7 @@
                             var notas=jQuery.parseJSON(datos);
                             
                             notas.forEach(function(nota){
-                                      posicionarmeDom.children('ul').append('<li value="'+nota.idNota+'">'+nota.descripcion+'&nbsp;&nbsp;<span class="glyphicon glyphicon-trash listadoNotas" ></span></li>');  
+                                      posicionarmeDom.children('ul').append('<li id="elementoNota" value="'+nota.idNota+'"><p id="letraNota">'+nota.descripcion+'</p><span class="glyphicon glyphicon-trash listadoNotas" style="color:black;"></span></li>');  
                             });  
                         } 
                    });
@@ -97,32 +99,8 @@
                     });
                     
                 });
-                
-                $('#alertInfo').hide();
-                
-                $('#invitar').click(function(event){
-                    event.preventDefault();
-                    var form = $(this).parent().parent();
-                    var datos = form.serialize();
-                    $.ajax({
-                        url: form.attr('action'),
-                        method:form.attr('method'),
-                        data: datos,
-                        success:function(result) {
-                           console.log(result);
-                           $('#alertInfo').show();
-                           $('#alertInfo').delay(2000).hide(600); 
-                        }
-                    });
-                    
-                    
-                        
-                        
-                        
-                        
-                    
-                    
-                    
+                  $('#añadirNotaBoton').click(function(){
+                  $('#añadirN').toggle();
                 });
                 
-}); 
+            }); 

@@ -7,6 +7,11 @@ body{
     background-color: #faf2cc;
     background-attachment: fixed;
 }
+h1{
+    align-self: center;
+   font-family: Jazz LET, fantasy;
+   color:red; 
+  }
 #jum{
     background-color: #faf2cc;
     height: 80%;
@@ -26,15 +31,16 @@ body{
 a.navbar-brand{
     padding: 0;
 }
+li.active{
+    margin-top: 5px;
+}
 #misP{
     display: none;
 }
 .navbar.navbar-default{
     padding-bottom: 15px;
 }
-.display-3{
-    margin: 0;
-}
+
 footer{
     position: fixed-botton;
     width: 100%; 
@@ -66,7 +72,15 @@ li{
 .modal-footer{
     border-top: transparent;
 }
-#modalLogin{
-    width: 250px;
-    align-content: center;
+
+
+#cajaLogin{
+   
+     width: 400px;
+}
+.milogin{
+    width: 350px;
+}
+.modal-title{
+    text-align: center;
 }

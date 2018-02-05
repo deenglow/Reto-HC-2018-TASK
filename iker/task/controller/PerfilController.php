@@ -50,21 +50,19 @@ class PerfilController {
     public function perfilUsuario(){
         
         include './model/Proyecto.php';
-
+        //include './model/Usuario.php';
+        
+        //$usuario=new Usuario($this->conexion);
         $proyecto=new Proyecto($this->conexion);
-        $proyecto2=new Proyecto($this->conexion);
-        $proyecto3=new Proyecto($this->conexion);
-
+        
+        //$listaDatosUsuario=$usuario->infoPorEmail($_GET['idUsuario']);
         $listaProyectos=$proyecto->getAllById($_GET['idUsuario']);
-
-        $invitaciones=$proyecto2->getAllInvitaciones($_GET['idUsuario']);
-        $numeroDeInvitaciones=$proyecto3->rowCountInvitaciones($_GET['idUsuario']);
+        //$listaProyectosNoParticipante=$proyecto->getAllNoParticipante();
         
         //Cargamos la vista index y le pasamos valores
         $this->view("perfil",array(
-                "proyectos"=>$listaProyectos,
-                "numeroDeInvitaciones"=>$numeroDeInvitaciones,
-                "invitaciones"=>$invitaciones
+                "proyectos"=>$listaProyectos//,
+                //"proyectosDisponibles"=>$listaProyectosNoParticipante
             ));
     }
 

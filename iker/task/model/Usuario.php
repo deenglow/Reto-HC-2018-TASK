@@ -16,8 +16,17 @@ class Usuario {
     private $email;
     private $telefono;
     private $contrasena;
+    private $foto;
+    
+    function getFoto() {
+        return $this->foto;
+    }
 
-    /**
+    function setFoto($foto) {
+        $this->foto = $foto;
+    }
+
+        /**
      * Usuario constructor.
      * @param $conexion
      */
@@ -172,15 +181,16 @@ class Usuario {
 
     public function registro(){
 
-        $consulta = $this->conexion->prepare("INSERT INTO usuario (nombre,apellido1,apellido2,email,telefono,contrasena)
-                                        VALUES (:nombre,:apellido1,:apellido2,:email,:telefono,:contrasena)");
+        $consulta = $this->conexion->prepare("INSERT INTO usuario (nombre,apellido1,apellido2,email,telefono,contrasena,foto)
+                                        VALUES (:nombre,:apellido1,:apellido2,:email,:telefono,:contrasena,:foto)");
         $registro = $consulta->execute(array(
             "nombre" => $this->nombre,
             "apellido1" => $this->apellido1,
             "apellido2"=>$this->apellido2,
             "email" => $this->email,
             "telefono" => $this->telefono,
-            "contrasena"=>$this->contrasena
+            "contrasena"=>$this->contrasena,
+            "foto"=> $this->foto
 
         ));
         
@@ -192,7 +202,7 @@ class Usuario {
 
     public function infoTotal(){
 
-        $consulta = $this->conexion->prepare("SELECT idUsuario,nombre,apellido1,apellido2,email,telefono,contrasena FROM " . $this->table);
+        $consulta = $this->conexion->prepare("SELECT idUsuario,nombre,apellido1,apellido2,email,telefono,contrasena,foto FROM " . $this->table);
         $consulta->execute();
         /* Fetch all of the remaining rows in the result set */
         $resultados = $consulta->fetchAll();
@@ -208,7 +218,7 @@ class Usuario {
         echo "Usuario eliminado";
     }
     public function infoPorEmail($email){ 
-        $consulta = $this->conexion->prepare("select idUsuario,nombre,apellido1,apellido2,email,telefono,contrasena FROM `usuario` WHERE email= :email " );
+        $consulta = $this->conexion->prepare("select idUsuario,nombre,apellido1,apellido2,email,telefono,contrasena,foto FROM `usuario` WHERE email= :email " );
         $consulta->execute(array('email'=>$email));
         $usuario= $consulta->fetchAll();
         $this->conexion=null;
@@ -216,7 +226,7 @@ class Usuario {
     }
     public function infoPorID($id){
  
-        $consulta = $this->conexion->prepare("select idUsuario,nombre,apellido1,apellido2,email,telefono,contrasena FROM `usuario` WHERE idUsuario = ".$id );
+        $consulta = $this->conexion->prepare("select idUsuario,nombre,apellido1,apellido2,email,telefono,contrasena,foto FROM `usuario` WHERE idUsuario = ".$id );
         $consulta->execute();
         $usuario= $consulta->fetchAll();
         $this->conexion=null;
@@ -239,13 +249,62 @@ class Usuario {
         return $update;
 
     }
-    
-    public function listarUsuarios(){
-        $consulta = $this->conexion->prepare("SELECT idUsuario, email FROM usuario");
-        $consulta->execute();
-        $resultados = $consulta->fetchAll();
-        $this->conexion = null; 
-        return $resultados;
-       
+public function foto(){
+    $conexion= $this->conexion;
+        if($_POST){
+    // Creamos la cadena aletoria
+        $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        $cad = "";
+    for($i=0;$i<12;$i++) {
+        $cad .= substr($str,rand(0,62),1);
     }
+// Fin de la creacion de la cadena aletoria
+    $tamano = $_FILES [ 'file' ][ 'size' ]; // Leemos el tamaño del fichero
+    $tamaño_max="50000000000"; // Tamaño maximo permitido
+    if( $tamano < $tamaño_max){ // Comprobamos el tamaño 
+        $destino = 'assets/img/' ; // Carpeta donde se guardata
+        $sep=explode('image/',$_FILES["file"]["type"]); // Separamos image/
+        $tipo=$sep[1]; // Optenemos el tipo de imagen que es
+        $nnombre= gettext($cad.'.'.$tipo);
+
+//para mostrar una imagen significativa para cuando el producto no la tenga
+if($tamano===0){
+    
+    $nnombre="avatar.jpg";
+};
+// Si el tipo de imagen a subir es el mismo de los permitidos, segimos. Puedes agregar mas tipos de imagen
+move_uploaded_file ( $_FILES [ 'file' ][ 'tmp_name' ], $destino . '/' .$nnombre);  // Subimos el archivo
+
+return $nnombre ;
+        
+       
+     
+}
+else echo "tamaño erroneo o imagen no seleccionada";// Si no es el tipo permitido lo decimos
+}
+
+} 
+function salidaImagenPortada($emailUsua){
+ 
+ $conexion= $this->conexion;
+ $consulta = $conexion -> prepare("SELECT foto  from usuarios where email=:email");
+         $consulta->bindParam(':email', $emailUsua, PDO::PARAM_INT);
+         $consulta->execute();  
+
+         while($imagen=$consulta->fetchObject()){ 
+              
+               $nombreimagen= $imagen->ruta;               
+           }
+if(empty($nombreimagen)){  
+          $nombreimagen="avatar.jpg";
+                $ruta='<a href="index.php?email='.$emailUsua.'"><img class="img-fluid" src="'.$directory."/".$nombreimagen.'"></a>';
+                 echo $ruta;
+                 
+      }
+      else{
+        
+           $ruta='<a href="detalle2.php?idp='.$emailUsua.'"><img  class="img-fluid" src="'.$directory."/".$nombreimagen.'"></a>';
+          echo $ruta;
+      }
+    }    
 }

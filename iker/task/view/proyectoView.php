@@ -5,7 +5,9 @@ $usuarios= $_SESSION["usuario"];
 include_once '.\view\viewGenerico\cabecera.php'; 
 
 $idUsuario="";
-foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];}
+$email="";
+$ruta="";
+foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu["email"];$ruta=$usu["foto"];}
     ?>  
 
 <!-- main -->
@@ -13,44 +15,18 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];}
  <main class="dev">
   <!-- Sidebar -->
         <aside class="lateral dev">
-            <div  style="height:400px">
-               <img src="./assets/img/avatar.jpg" alt="Foto perfil" alt="avatar perfil">
+            <div>
+                <img src="./assets/img/<?php echo $ruta ?>" id="fotoPerfil" alt="Foto perfil">
+             
             <?php 
             $usuarios= $_SESSION["usuario"];
             foreach($usuarios as $ususario) {?>
               <h3> <?php echo $ususario["nombre"]; ?> </h3>     
             <?php } ?>
-              
-              <!-- Invitaciones-->
-              <form action="index.php?controller=proyecto&action=invitacion&idProyecto=<?php echo $_GET['idProyecto']?>" method="post">
-	    		<div>
-                            <select name="usuarioSeleccionado" class="form-control">
-                                <option>Busca usuario</option>
-				<?php foreach ($data['usuarios'] as $usuario) {
-                                    echo '<option value="'.$usuario['idUsuario'].'">'.$usuario['email'].'</option>';
-				}?>
-                            </select>
-                            <input type="submit" name="search" value="Invitar" class="btn btn-info" id="invitar"/>
-	    		</div>
-	    	</form><!-- Fin: Invitaciones-->
-                <div>
-                    <label for="invitaciones_proyecto">Introduce email: </label><br>
-                    <input type="text" name="invitaciones_proyecto" id="invitaciones_proyecto"/>
-                    <button>Invitar</button>
-     
-                 </div>
-                
-                <div class="alert alert-success" role="alert" id="alertInfo">
-                    Invitacion Enviada con Exito!!!
-                </div>
-                <div class="alert alert-danger" role="alert" id="alertInfoUsuario">
-                    Usuario no existe
-                </div>
-               
+                <button type="button" id="botonInvitar" class="btn btn-info" data-toggle="modal" data-target="#proyectoNuevo">Invitar</a></button> 
             </div>
             <!-- un div que tenga los participantes del proyecto--> 
  <!-- SECTION PARA EL CHAT -->
- <hr>
            <h1>CHAT</h1>   
          
           <div id="chat">         
@@ -66,118 +42,92 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];}
             <div id="insertChat">
            <form action="index.php?controller=mensaje&action=alta&idProyecto=<?php echo $_GET['idProyecto']?>" method="post" id="formChat">
                   
-                   <textarea name="mensaje" rows="1" class="form-control"></textarea>
-                    <input type="submit" value="Añadir" class="btn btn-info"/>   
+               <textarea name="mensaje" rows="1" class="form-control" maxlength="30"></textarea><br>
+                    <input type="submit" value="Añadir" class="btn btn-info botonchat"/>   
            </form>
           </div>  
         
         </aside>
   <!-- Contenido -->
         <section class="contenido dev">
-            <h1><?php echo strtoupper($data['datosProyecto']->nombre)?> </h1>
-            <!--<button type="button" class="btn btn-primary">
-                Notificaciones <span class="badge badge-info"><?php// echo$data['numeroTareas']?></span>
-            </button>-->
-  <!-- TAREAS -->
-            <ul class="dev">
-                <?php foreach($data["tareas"] as $tarea) {?>
-                   <div id="positproyecto"> 
-                              <img src="./assets/img/amarillo2.png" alt="posit proyecto" id="posit">
-                          <div>
-                              <?php if($tarea["realizado"]==0) {?>
-                                          <button class="btn btn-info realizado"  value="<?php echo $tarea["idTarea"]?>">Realizado</button>
-                              <?php }else{ ?>
-                                          <button class="btn btn-info realizado"  value="<?php echo $tarea["idTarea"]?>" disabled ></span>Realizado <span class="glyphicon glyphicon-ok"></button>
-                              <?php } ?>
-                              <a href="index.php?controller=tarea&action=delete&idTarea=<?php echo $tarea["idTarea"]?>&idProyecto=<?php echo $tarea["idProyecto"]?>" class="btn btn-danger">Eliminar</a>&nbsp;
-                              <p>
-                                 Nombre: <?php echo $tarea["nombre"]; ?> 
-                                 Fecha Vencimiento: <?php echo $tarea["fecha_vencimiento"]; ?>
-                              </p>
-                              <button class="btn btn-warning  verNotas" value="<?php echo $tarea["idTarea"]?>">Ver Notas</button>
-                              <button class="btn btn-success notas" value="<?php echo $tarea["idTarea"]?>">Añadir Nota</button>
-                              <div></div>
-                              <div class="mostrarNotas">
-                                  <h4>NOTAS <button class="x">X</button> </h4>
-                                  <ul style="color: black;"></ul>                  
-                              </div>
-                         </div>
-                   </div>
-                <?php } ?>
-             </ul> 
-        </section>
-  <!-- modal añadir tareas-->
-             
-                   <form action="index.php?controller=tarea&action=alta&idProyecto=<?php echo $_GET['idProyecto']?>" method="post" >
+            <h1><?php echo strtoupper($data['datosProyecto']->nombre) ?></h1>
+     <!-- boton añadir notas -->            
+            <a href="#" class="btn btn-info btn-lg" id="añadirNotaBoton">
+                  <span class="glyphicon glyphicon-plus"></span> Notas
+             </a>
+     <!-- invisible hasta pulsar boton -->        
+             <div id="añadirN">
+               <form  action="index.php?controller=tarea&action=alta&idProyecto=<?php echo $_GET['idProyecto']?>" method="post" >
                     <h3>Crear Tarea</h3>
                     <hr/>
-                    Nombre: <input type="text" name="nombre" class="form-control"/>
-                    Fecha de Vencimiento: <input type="date" name="FechaVencimiento" class="form-control"/>
+                    <p> Nombre:</p> <input type="text" name="nombre" class="form-control" required="true"/>
+                    <p> Fecha de Vencimiento: </p><input type="date" name="FechaVencimiento" required="true" class="form-control"/><br>
                     <!-- Realizado: <select name="realizado" class="form-control">
                                     <option value="1">Si</option>
                                     <option value="0">No</option>
                                </select>-->
                     <input type="hidden" name="realizado" value="0">
                     <input type="submit" value="Crear" class="btn btn-success"/>   
-                   </form><!-- fin añadir -->
-                   
+                   </form>
+            </div>
+            
+ <!-- TAREAS -->
+        <ul class="dev">
+        
+            <?php foreach($data["tareas"] as $tarea) {?>
+           <div id="positproyecto"> 
+                              <img src="./assets/img/amarillo2.png" alt="posit proyecto" id="posit">
+                          <div>
+                              <?php if($tarea["realizado"]==0) {?>
+                                          <button class="btn btn-info realizado"  value="<?php echo $tarea["idTarea"]?>"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                              <?php }else{ ?>
+                                          <button class="btn btn-success realizado"  value="<?php echo $tarea["idTarea"]?>" disabled ><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                              <?php } ?>
+                              <a href="index.php?controller=tarea&action=delete&idTarea=<?php echo $tarea["idTarea"]?>&idProyecto=<?php echo $tarea["idProyecto"]?>" id="trash2" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></a>&nbsp;
+                              <p>
+                              <h3> <?php echo $tarea["nombre"]; ?> </h3>
+                              <p>Vencimiento: <?php echo $tarea["fecha_vencimiento"]; ?></p>
+                              </p>
+                              <button class="btn btn-warning  verNotas" value="<?php echo $tarea["idTarea"]?>"><span class="glyphicon glyphicon-eye-open"></button>
+                              <button class="btn btn-success notas" value="<?php echo $tarea["idTarea"]?>"><span class="glyphicon glyphicon-pencil"></button>
+                              <div></div>
+                              <div class="mostrarNotas">
+                                  <p>NOTAS <button class="x">X</button> </p>
+                                  <ul id="listaNota"></ul>                  
+                              </div>
+                         </div>
+                   </div>
+            <?php } ?>
+            </ul> 
+        
+<!-- fin añadir -->
+        </section>
+  <!-- modal añadir tareas-->
+       
           <aside class="lateral dev">
             <div  style="height:80%">
            
             </div>
-          <!-- SECTION PARA EL CHAT -->         
+          <!-- SECTION PARA subir-->         
           <button type="button" class="btn-info">Añadir documentacion</button>       
            <div id="social">  
            <!-- Social -->
-            <a href="#" class="dev">
+            <a href="#" class="dev mini">
                 <img src="./assets/img/mail.png" alt="Correo-e">
-                <span>Correo-e</span>
+               
             </a>
-            <a href="#" class="dev">
+            <a href="#" class="dev mini">
                 <img src="./assets/img/twitter.png" alt="Twitter">
-                <span>Twitter</span>
+                
             </a>
            
           </div>
         </aside>
 
-    <!-- OJO ESTO HAY QUE ORDENAR Y TERMINAR-->
-   
+    
+    
+    
     </main>
-
-<script>
-    $(document).ready(function(){
-
-        $('#alertInfoUsuario').hide();
-        
-        $('#invitaciones_proyecto').blur(function(){
-           var valorInput=$(this).val();
-           $.ajax({
-               url: "index.php?controller=usuarios&action=buscarUsuario&email="+valorInput,
-               method:'POST',
-               success: function(result){
-                   console.log(result);
-                   if(result==0){
-                        $('#alertInfoUsuario').show();
-                        $('#alertInfoUsuario').delay(2000).hide(600); 
-                        
-                   }else{
-                       
-                       //JSON.stringify(result);
-                       alert(JSON.stringify(result)[0][0]);
-                       
-                   };
-                   
-                   
-               }
-           });
-              
-        
-        });
-        
-        
-    });
-</script>
     
 
 

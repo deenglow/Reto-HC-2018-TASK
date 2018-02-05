@@ -3,7 +3,7 @@
 <!-- Jumbotron con carrousel-->
 <header class="jumbotron text-center" id="jum">
     <div class="alert alert-danger" role="alert" id="alert" style="display:none" >Login failed!!</div>
-    <h1 class="display-3">BIENVENIDO!</h1>
+    <h1>BIENVENIDO!</h1>
     <p class="lead">
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalLogin">A trabajar!</a></button>
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalRegistro">Registrate</a></button>
@@ -36,6 +36,7 @@
                     <img src="./assets/img" alt="INVITA" style="width:100%; height: 300px;">
                 </div>
             </div>
+            
 
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -56,13 +57,13 @@
         <div class="modal-dialog">
 
             <!-- Modal content-->
-            <div class="modal-content">
+            <div class="modal-content" id="cajaLogin">
                 <div class="modal-header">
                
                     <h4 class="modal-title">Login</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="index.php?controller=usuarios&action=login" method="post" class="col-lg-5">
+                    <form action="index.php?controller=usuarios&action=login" method="post" class="milogin col-lg-5">
                         Email: <input type="text" name="email" id="formEmail" class="form-control"/>
                         Contraseña:<input type="text" name="contrasena" id="formContra" class="form-control" /><br>
                         <input type="submit" value="enviar" class="btn btn-success"/> 
@@ -90,19 +91,21 @@
                     <h4 class="modal-title">Introduce tus datos</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="index.php?controller=usuarios&action=alta" method="post" class="col-lg-5">
+                    <form action="index.php?controller=usuarios&action=alta" method="post" class="col-lg-5" enctype="multipart/form-data">
                         Nombre: <input type="text" name="nombre" class="form-control"/>
                         Apellido 1º: <input type="text" name="apellido1" class="form-control"/>
                         Apellido 2º : <input type="text" name="apellido2" class="form-control"/>
                         Email: <input type="text" name="email" class="form-control"/>
                         Telefono: <input type="text" name="telefono"  class="form-control"/>
-                        Contraseña:<input type="text" name="contrasena" class="form-control"/>
-                        <input type="submit" value="enviar" class="btn btn-success"/>
+                        Contraseña:<input type="text" name="contrasena" class="form-control"/>                          
+                         <label for="imagen">Foto perfil:</label>
+                          <input  type="file" name="file" id="imagen" />
+                          <input type="submit" value="enviar" class="btn btn-success"/>  
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+                   
+                </div> 
             </div>
 
         </div>

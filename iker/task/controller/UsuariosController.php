@@ -37,11 +37,7 @@ class UsuariosController
                 $this->detalle();
                 break;
             case "update" :
-                 case "buscarUsuario" :
-              
-                $this->buscarUsuario();
-                break;
-                
+               
                 $this->update();
                 break;
             case "login" :  
@@ -55,10 +51,12 @@ class UsuariosController
              case "proyecto" :       
                 $this->proyecto();
                 break;
+              case "foto" :       
+                $this->foto();
+                break;
             default:
                 $this->index();
                 break;
-            
         }
     }
 
@@ -81,10 +79,10 @@ class UsuariosController
     public function baja()
     {
         $email = $_POST["email"];
-        //Creamos el objeto empleado
+        //Creamos el objeto usuario
         $usuario = new Usuario($this->conexion);
         $usuario->borrarPorEmail($email);
-        
+        session_destroy();
          header('Location: index.php');
        
     }
@@ -111,28 +109,14 @@ class UsuariosController
         
         echo $variableretorno;
     }
-    
-    public function buscarUsuario()
-    {
-        $email = $_GET["email"];
-        $usuario = new Usuario($this->conexion);
-        $usu = $usuario->infoPorEmail($email);
-      // echo json_encode($datos, JSON_FORCE_OBJECT);
-        $variableretorno="";
-        if(empty($usu)){
-            $variableretorno=0;
-            
-        }else{
-           
-            $variableretorno=$usu;
-            echo json_encode($variableretorno,JSON_FORCE_OBJECT);
-        }
-        
-        //echo $variableretorno;
-    }
-    
-    
-
+    //subir foto
+ public function foto($email) {
+                
+               $usuario = new Usuario($this->conexion);
+               $usuario->subirFoto($email);
+             
+                
+            }   
     /**
      * Crea un nuevo empleado a partir de los parámetros POST
      * y vuelve a cargar el index.php.
@@ -144,12 +128,16 @@ class UsuariosController
            
             //Creamos un usuario
             $usuario = new Usuario($this->conexion);
+            
             $usuario->setNombre($_POST["nombre"]);
             $usuario->setApellido1($_POST["apellido1"]);
             $usuario->setApellido2($_POST["apellido2"]);
             $usuario->setEmail($_POST["email"]);
             $usuario->setTelefono($_POST["telefono"]);
             $usuario->setContrasena($_POST["contrasena"]);
+                 $nombreFoto=$usuario->foto();
+              $usuario->setFoto($nombreFoto);   
+             
             $lastId = $usuario->registro();
              $usuario = new Usuario($this->conexion);
             $datos=$usuario->infoPorID($lastId);
@@ -212,6 +200,9 @@ class UsuariosController
        
         
     }
+   
+    //  case "proyecto" :       
+           
     //cerrar la sesion y volver a index
    
         public function proyecto() {
@@ -233,8 +224,5 @@ class UsuariosController
       
         require_once __DIR__ . "/../view/" . $vista . "View.php";
     }
-    
-  
-    
 }
 ?>

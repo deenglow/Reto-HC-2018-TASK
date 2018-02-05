@@ -36,7 +36,7 @@
     
     <body>
  <nav class="navbar navbar-default" id="nav">
-    <a class="navbar-brand" href="index.php?controller=usuarios&action=index"><img id="logo"  src="./assets/img/t.png" alt="logo task"></a>
+    <a class="navbar-brand" href="index.php?controller=usuarios&action=index"><img class="img-fluid" id="logo"  src="./assets/img/t.png" alt="logo task"></a>
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -54,7 +54,8 @@
             <ul class="nav navbar-nav">
                     <?php 
                 if(isset($_SESSION["usuario"])){ ?>
-                     <li class="active"><a href="#">Bienvenido!----><?php  foreach ($_SESSION["usuario"] as $usu){echo $usu["nombre"];}?><span class="sr-only"></span></a></li> 
+                     <li class="active">
+                         <h2>Bienvenido!----><?php  foreach ($_SESSION["usuario"] as $usu){echo $usu["nombre"];}?></h2><span class="sr-only"></span></li> 
               <?php  }
                 ?>
                      <li id="misP"><a href="index.php?controller=perfil&action=perfilUsuario&idUsuario=<?php  foreach ($_SESSION["usuario"] as $usu){ echo $usu["idUsuario"];}?>">Mis proyectos</a></li>
@@ -69,13 +70,10 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>-->
             <ul class="nav navbar-nav navbar-right">
-
                 <li><a href="./core/logout.php">Cerrar Sesion</a></li>
 
             </ul>
         </div>
-        
-     
 
         <!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

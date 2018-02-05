@@ -13,6 +13,20 @@ html {
 *, *:before, *:after {
     box-sizing: inherit;
 }
+/*lettering,tityulos etc*/
+h3{
+    text-align: center;
+    margin-top: 0;
+    color:rgba(0, 0, 0, .4); 
+}
+h2{height: 40px;
+margin: 0;}
+p{
+    text-align: center;
+   padding-left: 10px;
+   font-family: Jazz LET, fantasy;
+   color:rgba(0, 0, 0, .4); 
+}
 /*estilos del index para cuando esta logeado*/
 #jum{
     background-color: #faf2cc;
@@ -50,6 +64,9 @@ main {
     border-radius:  20px;
 }
 /*cabecera*/
+li.active{
+    margin-top: 5px;
+}
 a.navbar-brand{
     padding: 0;
 }
@@ -76,7 +93,12 @@ img#logo{
       height: 85px;
     width: 85px;
 }
-
+.modal-content{
+    width: 350px;
+}
+.modal-dialog{
+    height: 500px;
+}
 
 
 /* Interior del contenedor */
@@ -85,8 +107,8 @@ img#logo{
     background-color: rgba(0, 0, 0, .4);
     padding: 20px;
     display: flex;
-    justify-content: center;
-    align-content: center;
+    justify-content: flex-start;
+    align-content: flex-start;
     flex-direction: column;
      align-items:center;
      border: 2px solid grey;
@@ -100,21 +122,21 @@ img#logo{
      display: flex;
      flex-flow: row;
     justify-content: flex-start;
-    list-style: none;
-   
+    list-style: none; 
     width: 100%;
-    height: 100%;
-  
-   
-  
-    /*scroll del chat*/
-  
+    height: 100%; 
 }
-h2{height: 40px;
-margin: 0;}
+
 img {
    max-height: 300px;
     max-width: 300px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius:  20px;
+}
+#fotoPerfil{
+    max-height: 200px;
+    max-width: 200px;
     margin-bottom: 20px;
     padding: 10px;
     border-radius:  20px;
@@ -126,15 +148,14 @@ img {
      flex-flow: row;
     justify-content: flex-end;
     list-style: none;
-  
     width: 100%;
     height: 100%;
-  
-   
     border-radius: 20px;
      
 }
-
+#social{
+    margin-top: 700px;
+}
 
 
 
@@ -151,6 +172,9 @@ img {
     height: auto;
      overflow-y:scroll;
 }
+#botonInvitar{
+    margin-left: 35%;
+}
 
 .contenido h1 {
     margin-top: 0;
@@ -159,6 +183,7 @@ img {
 }
 
 .contenido ul {
+     
     display: flex;
     flex-flow: row;
     flex-wrap: wrap;
@@ -172,6 +197,7 @@ img {
 }
 
 .contenido ul li {
+    position: absolute;
     display: flex; 
     height: 100px;
    min-width: 200px;
@@ -193,20 +219,18 @@ h1{align-self: center;
    color:rgba(0, 0, 0, .4); 
   }
 #positproyecto>div{
+    /*para poder colocar la imagen encima*/
    position: absolute;
-   top: 120px;
-   margin-left: 50px;
+   top: 40px;
+   margin-left: 30px;
     color:#fff;
     padding:2px 10px;
    
     font-weight:bold; 
     z-index: 1;
 }
-p{
-   padding-left: 10px;
-   font-family: Jazz LET, fantasy;
-   color:rgba(0, 0, 0, .4); 
-}
+
+
 #chat{
   
     display: flex;
@@ -222,18 +246,26 @@ p{
     /*scroll del chat*/
      overflow-y:scroll;
      min-height: 450px;
+     min-width:250px;
+}
+.botonchat{
+    margin-left: 35%;
 }
 
 #formChat{
     height: 100px;
     width: 100%;
+    margin-bottom: 0;
     
 }
-#botonNproyecto{
-   margin-left: 35%;
-   width:30%;
-    height: 40px;
-    
+#formMOdificar{
+    width: 300px;
+}
+#añadirN{
+    width: 300px;
+    display: none;
+    margin-left:650px;
+   
 }
 #invitar{
     display: flex;
@@ -243,12 +275,85 @@ p{
     height: 80px;
 }
 
+#vencimiento{
+    margin-bottom: 95px
+}
+#realizado{
+    margin-left: 65px;
+}
 a.navbar-brand{
     padding: 0;
 }
 
-#logo{
-  
+
+/*--------------------------------------------------------------*/
+/* BOTONES VARIOS*/
+.realizado{
+    margin-top: 25px;
+}
+#botonBaja{
+   
+    margin-left: 15px;
+}
+#añadirNotaBoton{
+    width:100px; 
+     margin-left: 1150px;
+}
+
+
+#trash1{
+   margin-left:155px;
+    margin-bottom: 25px;
+}
+#trash2{
+    margin-left: 115px;
+}
+
+.avance{
+    margin-top: 35px;
+    margin-left: 160px;
+   
+}
+#botonNproyecto{
+    margin-left: 1200px;
+   width:200px;
+    height: 40px;
+    
+}
+.verNotas{
+    margin-top: 50px;
+    margin-left: 10px;
+}
+/*----------------------------------------------------------------------------------------------------------*/
+/* NOTAS*/
+div.añadirNotas{
+    position: absolute;
+    z-index: 1;
+}
+
+.mostrarNotas{
+    margin-top: 30px;
+}
+.notas{
+    margin-top: 50px;
+}
+#listaNota{
+    margin-left: 30px;
+    background-color:#f8efc0;
+    margin: 0;
+    padding: 0;
+}
+#letraNota{
+    margin-right: 60px;
+}
+#elementoNota{
+    
+    height: 30px;
+      background-color: #f8efc0;
+      text-align: center;
+}
+.mini{
+    margin-bottom: 0;
 }
 
 #social{

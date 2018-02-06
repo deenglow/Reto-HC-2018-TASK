@@ -135,7 +135,7 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
        
                 <p>Descripcion:</p><input type="text" name="descrpcion" required="true"class="form-control"/>                               
                 <input  type="file" required="true" name="file" id="imagen" />
-                          <input type="submit" value="Añadir archivos" class="btn-info""/>  
+                          <input type="submit" value="Añadir archivos" class="btn-info"/>  
            </form>
            <div id="social">  
            <!-- Social -->

@@ -1,6 +1,4 @@
 <?php
-
-
 class Conectar {
     private $driver;
     private $host, $user, $pass, $database, $charset;
@@ -16,10 +14,7 @@ class Conectar {
     }
     
     public function conexion(){
-
         $bbdd = $this->driver .':host='. $this->host .  ';dbname=' . $this->database . ';charset=' . $this->charset;
-
-        //$bbdd = ' mysql:host=localhost;dbname=mvc1;charset=utf8';
         try {
             $connection = new PDO($bbdd, $this->user, $this->pass);
             $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

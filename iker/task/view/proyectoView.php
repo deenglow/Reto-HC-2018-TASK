@@ -26,13 +26,14 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
               
               <!-- Invitaciones-->
               <div>
-                    <label for="invitaciones_proyecto">Introduce email: </label><br>
-                    <input type="text" name="invitaciones_proyecto" id="invitaciones_proyecto"/>
+                    <label for="invitaciones_proyecto">Usuario a invitar: </label><br>
+                    <input type="text" name="invitaciones_proyecto" id="invitaciones_proyecto" placeholder="Introduce su email"/>
                     <form id="enviar_invitacion">
                         <input type="hidden" name="idProyecto" value=<?php echo $_GET['idProyecto'] ?>/>
                         <input type="hidden" name="idUsuario" value="" id="usuario_id"/>
                     </form>
-                    <button id="invitar_usuario">Invitar</button>
+                    <button id="invitar_usuario">Invitar</button>&nbsp;&nbsp;
+                    <button id="cancelar_invitar">Cancelar</button>
      
                  </div>
                 
@@ -148,66 +149,8 @@ foreach ($_SESSION["usuario"] as $usu){$idUsuario= $usu["idUsuario"];$email=$usu
             </a>
            
           </div>
-        </aside>
-
-    
-    
-    
+        </aside>  
     </main>
-<script>
-    $(document).ready(function(){
-
-        $('#alertInfoUsuario').hide();
-        $('#alertInfo').hide();
-        $('#invitar_usuario').attr('disabled',true);
-        
-        $('#invitaciones_proyecto').blur(function(){
-           var valorInput=$(this).val();
-           $.ajax({
-               url: "index.php?controller=usuarios&action=buscarUsuario&email="+valorInput,
-               method:'POST',
-               success: function(result){
-                   console.log(result);
-                   if(result==0){
-                        $('#alertInfoUsuario').show();
-                        $('#alertInfoUsuario').delay(2000).hide(600); 
-                   }else{     
-                       var datosObjeto=jQuery.parseJSON(result);
-                       $('#invitaciones_proyecto').attr('disabled',true);
-                       $('#invitar_usuario').removeAttr('disabled');
-                       $('#usuario_id').attr('value',datosObjeto.idUsuario);
-                   };    
-               }
-           });
-              
-        
-        });
-        
-        $('body').on('click','#invitar_usuario',function(event){     
-            event.preventDefault();
-            var datos=$('#enviar_invitacion').serialize();
-            $.ajax({
-                url: "index.php?controller=proyecto&action=invitacion",
-                method:"POST",
-                data:datos,
-                success:function(result){
-                    console.log(result);
-                    $('#alertInfo').show();
-                    $('#alertInfo').delay(2000).hide(600); 
-                }
-
-            });
-
-            $('#invitaciones_proyecto').attr('disabled',false);
-            $('#invitar_usuario').attr('disabled',true);
-            
-        });
-        
-        
-    });
-</script>
-    
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
